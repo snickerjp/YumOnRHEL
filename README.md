@@ -23,7 +23,7 @@ yum を RHEL 4.x (Redhat Enterprise Linux) で使えるようにするシェル
 * rename CentOS-Base.repo
 * deploy GPG RPM-GPG-KEY-oracle-el4
 
-# test 
+## test 
 
 * RHEL 4.8
 
