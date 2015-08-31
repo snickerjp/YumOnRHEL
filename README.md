@@ -27,3 +27,8 @@ yum を RHEL 4.x (Redhat Enterprise Linux) で使えるようにするシェル
 
 * RHEL 4.8
 
+## ToDo
+
+* Ansibleでやりたかった
+
+
