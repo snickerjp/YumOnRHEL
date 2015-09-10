@@ -13,14 +13,15 @@ fi
 #export https_proxy=http://192.168.1.1:8080/
 
 export BSDIR=/tmp/yum-bootstrap
+mkdir $BSDIR
 
 # Check that the prerequisite of yumconf is installed
 rpm -q --whatprovides yumconf 2>&1 >/dev/null
 if [ $? != 0 ]; then
-    if [ !-f $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm ]; then
-        wget -O $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm "https://wiki.centos.org/HowTos/PackageManagement/YumOnRHEL?action=AttachFile&do=get&target=redhat-yumconf-4-4.8.el4.nosrc.rpm"
+    if [ ! -f $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm ]; then
+        wget --no-check-certificate -O $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm "https://wiki.centos.org/HowTos/PackageManagement/YumOnRHEL?action=AttachFile&do=get&target=redhat-yumconf-4-4.8.el4.nosrc.rpm"
     fi
-    if [ !-f /usr/src/redhat/SOURCES/RHEL-Base.repo ]; then
+    if [ ! -f /usr/src/redhat/SOURCES/RHEL-Base.repo ]; then
         wget -O /usr/src/redhat/SOURCES/RHEL-Base.repo http://public-yum.oracle.com/public-yum-el4.repo
     fi
     rpmbuild --rebuild $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm
@@ -38,7 +39,6 @@ export ARCH=`uname -i`
 #export SOURCE=http://vault.centos.org/4.7/os/$ARCH/CentOS/RPMS
 export SOURCE=http://vault.centos.org/4.9/os/$ARCH/CentOS/RPMS
 
-mkdir $BSDIR
 wget -P $BSDIR -nH $SOURCE/yum-2.4.3-4.el4.centos.noarch.rpm
 wget -P $BSDIR -nH $SOURCE/yum-metadata-parser-1.0-8.el4.centos.$ARCH.rpm
 wget -P $BSDIR -nH $SOURCE/python-urlgrabber-2.9.8-2.noarch.rpm
@@ -63,7 +63,7 @@ if [ -f /etc/yum.repos.d/CentOS-Base.repo ]; then
     mv -v /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.dist
 fi
 
-if [ !-f /usr/share/rhn/RPM-GPG-KEY-oracle ]; then
+if [ ! -f /usr/share/rhn/RPM-GPG-KEY-oracle ]; then
     wget -O /usr/share/rhn/RPM-GPG-KEY-oracle http://public-yum.oracle.com/RPM-GPG-KEY-oracle-el4
 fi
 
