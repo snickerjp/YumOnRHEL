@@ -61,7 +61,7 @@ EOS`
 
 # download loop
 for i in `echo $YUM_PKG_LIST`
-    do if [!-f $i]; then
+    do if [ ! -f $BSDIR/$i ]; then
            wget -P $BSDIR -nH $SOURCE/$i
        fi
 done
