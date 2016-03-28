@@ -21,7 +21,7 @@ export WGET_VERSION=`rpm -q wget |awk -F"-" '{print $2}'`
 rpm -q --whatprovides yumconf 2>&1 >/dev/null
 if [ $? != 0 ]; then
     if [ ! -f $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm ]; then
-        if [ ${WGET_VERSION} =< 1.10 ]; then
+        if [ ${WGET_VERSION} >= 1.10 ]; then
             wget --no-check-certificate -O $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm "https://wiki.centos.org/HowTos/PackageManagement/YumOnRHEL?action=AttachFile&do=get&target=redhat-yumconf-4-4.8.el4.nosrc.rpm"
         else 
             wget -O $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm "https://wiki.centos.org/HowTos/PackageManagement/YumOnRHEL?action=AttachFile&do=get&target=redhat-yumconf-4-4.8.el4.nosrc.rpm"
