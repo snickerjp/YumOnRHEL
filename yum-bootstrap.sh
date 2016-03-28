@@ -15,13 +15,16 @@ fi
 export BSDIR=/tmp/yum-bootstrap
 mkdir $BSDIR
 
+export WGET_VERSION=`rpm -q wget |awk -F"-" '{print $2}'`
+
 # Check that the prerequisite of yumconf is installed
 rpm -q --whatprovides yumconf 2>&1 >/dev/null
 if [ $? != 0 ]; then
     if [ ! -f $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm ]; then
-        wget --no-check-certificate -O $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm "https://wiki.centos.org/HowTos/PackageManagement/YumOnRHEL?action=AttachFile&do=get&target=redhat-yumconf-4-4.8.el4.nosrc.rpm"
-        if [ $? != 0 ]; then
-           wget -O $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm "https://wiki.centos.org/HowTos/PackageManagement/YumOnRHEL?action=AttachFile&do=get&target=redhat-yumconf-4-4.8.el4.nosrc.rpm"
+        if [ ${WGET_VERSION} =< 1.10 ]; then
+            wget --no-check-certificate -O $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm "https://wiki.centos.org/HowTos/PackageManagement/YumOnRHEL?action=AttachFile&do=get&target=redhat-yumconf-4-4.8.el4.nosrc.rpm"
+        else 
+            wget -O $BSDIR/redhat-yumconf-4-4.8.el4.nosrc.rpm "https://wiki.centos.org/HowTos/PackageManagement/YumOnRHEL?action=AttachFile&do=get&target=redhat-yumconf-4-4.8.el4.nosrc.rpm"
         fi
     fi
     if [ ! -f /usr/src/redhat/SOURCES/RHEL-Base.repo ]; then
